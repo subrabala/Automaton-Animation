@@ -21,6 +21,7 @@ function getNeighbourValue(row, col) {
 }
 
 function generatePattern(Rule) {
+  gridContainer.innerHTML = "";
   const binary = Rule.toString(2);
   console.log(binary);
   for (let i = 1; i <= rows; i++) {
@@ -45,7 +46,9 @@ function generatePattern(Rule) {
 }
 
 form.addEventListener("submit", function (event) {
+  event.preventDefault();
   const Rule = parseInt(input.value, 10);
   console.log(Rule);
   generatePattern(Rule);
+  input.value = "";
 });
