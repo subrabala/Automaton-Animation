@@ -3,6 +3,9 @@ body {
   padding: 0;
   display: flex;
 }
+body .dark-mode {
+  background-color: rgb(29, 29, 29);
+}
 .container {
   display: grid;
   grid-template-columns: repeat(60, 1fr);
@@ -12,7 +15,13 @@ body {
 }
 
 .black-cell {
-  background-color: black;
+  background-color: rgb(0, 0, 0);
+  animation-fill-mode: forwards;
+  animation-name: animate;
+  animation-duration: 2s;
+}
+.white-cell {
+  background-color: rgb(255, 255, 255);
   animation-fill-mode: forwards;
   animation-name: animate;
   animation-duration: 2s;
@@ -21,12 +30,13 @@ body {
   background-color: black;
 }
 
-.control-panel{
-    border-radius: 0 20px 20px 0;
-    background-color: rgb(95, 190, 234);
+.control-panel {
+  border-radius: 0 20px 20px 0;
+  background-color: rgb(95, 190, 234);
 }
-.button, .button:focus{
-    background-color: darkblue;
+.button,
+.button:focus {
+  background-color: darkblue;
 }
 
 @keyframes animate {

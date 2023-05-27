@@ -4,7 +4,28 @@ const input = document.getElementById("input");
 
 const rows = 30;
 const cols = 60;
+let value=0;
 // const Rule = 182;
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const Rule = parseInt(input.value, 10);
+  console.log(Rule);
+  generatePattern(Rule);
+  input.value = "";
+});
+
+const toggleSwitch = document.getElementById("toggleSwitch");
+
+toggleSwitch.addEventListener("change", function () {
+  value = toggleSwitch.checked ? 1 : 0;
+  console.log("Toggle switch value:", value);
+  if (
+    value
+      ? (gridContainer.style.backgroundColor = "black")
+      : (gridContainer.style.backgroundColor = "white")
+  );
+});
 
 function getNeighbourValue(row, col) {
   const getCellColor = (r, c) =>
@@ -25,34 +46,31 @@ function generatePattern(Rule) {
   const binary = Rule.toString(2);
   console.log(binary);
   for (let i = 1; i <= rows; i++) {
-    setTimeout(()=>{
-        for (let j = 1; j <= cols; j++) {
-            setTimeout(()=>{
-               const gridItem = document.createElement("div");
-               gridItem.classList.add("grid-item");
-               if (i === 1 && j === 31) {
-                 gridItem.classList.add("black-cell");
-               }
-         
-               if (i > 1) {
-                 const neighbourValue = parseInt(getNeighbourValue(i, j), 2);
-                 console.log(neighbourValue);
-                 const power = binary.length - neighbourValue - 1;
-                 if (binary[power] == 1) {
-                   gridItem.classList.add("black-cell");
-                 }
-               }
-               gridContainer.appendChild(gridItem);
-            },700)
-           }
-    },500)
+    setTimeout(() => {
+      for (let j = 1; j <= cols; j++) {
+        setTimeout(() => {
+          const gridItem = document.createElement("div");
+          gridItem.classList.add("grid-item");
+          if (i === 1 && j === 31) {
+            gridItem.classList.add("black-cell");
+          }
+
+          if (i > 1) {
+            const neighbourValue = parseInt(getNeighbourValue(i, j), 2);
+            console.log(neighbourValue);
+            const power = binary.length - neighbourValue - 1;
+            if (binary[power] == 1) {
+              if(value===0){
+                gridItem.classList.add("black-cell");
+              }
+              else if(value===1){
+                gridItem.classList.add("white-cell");
+              }
+            }
+          }
+          gridContainer.appendChild(gridItem);
+        }, 700);
+      }
+    }, 500);
   }
 }
-
-form.addEventListener("submit", function (event) {
-  event.preventDefault();
-  const Rule = parseInt(input.value, 10);
-  console.log(Rule);
-  generatePattern(Rule);
-  input.value = "";
-});
