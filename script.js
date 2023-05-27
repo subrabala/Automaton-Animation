@@ -56,12 +56,7 @@ function getNeighbourValue(row, col) {
 function generatePattern(Rule) {
   gridContainer.innerHTML = "";
   let binary = Rule.toString(2);
-  if (value === 1) {
-    binary = binary
-      .split("")
-      .map((bit) => (bit === "0" ? "1" : "0"))
-      .join("");
-  }
+
   console.log(binary);
   for (let i = 1; i <= rows; i++) {
     setTimeout(() => {
@@ -79,10 +74,6 @@ function generatePattern(Rule) {
           }
 
           if (i > 1) {
-            const neighbourValue = (value===0?parseInt(getNeighbourValue(i, j), 2): binary.length -1- parseInt(getNeighbourValue(i, j), 2));
-            console.log(neighbourValue);
-            
-            const power = binary.length - neighbourValue - 1;
             if (i === 1 && j === 31) {
               if (value === 0) {
                 gridItem.classList.add("black-cell");
@@ -90,7 +81,11 @@ function generatePattern(Rule) {
                 gridItem.classList.add("white-cell");
               }
             } else {
-              const neighbourValue = parseInt(getNeighbourValue(i, j), 2);
+              // const neighbourValue = parseInt(getNeighbourValue(i, j), 2);
+              const neighbourValue =
+                value === 0
+                  ? parseInt(getNeighbourValue(i, j), 2)
+                  : binary.length - 1 - parseInt(getNeighbourValue(i, j), 2);
               const power = binary.length - neighbourValue - 1;
               if (binary[power] === "1") {
                 if (value === 0) {
@@ -99,8 +94,10 @@ function generatePattern(Rule) {
                   gridItem.classList.add("white-cell");
                 }
               }
+              if (i < 4) console.log(neighbourValue);
             }
           }
+
           gridContainer.appendChild(gridItem);
         }, 700);
       }
