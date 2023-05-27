@@ -5,8 +5,8 @@ const input = document.getElementById("input");
 const rows = 30;
 const cols = 60;
 let value = 0;
-// const Rule = 182;
 
+// on giving input, trigger generateFunction
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   const Rule = parseInt(input.value, 10);
@@ -15,8 +15,8 @@ form.addEventListener("submit", function (event) {
   input.value = "";
 });
 
+// if dark mode, change the background color
 const toggleSwitch = document.getElementById("toggleSwitch");
-
 toggleSwitch.addEventListener("change", function () {
   value = toggleSwitch.checked ? 1 : 0;
   console.log("Toggle switch value:", value);
@@ -27,7 +27,9 @@ toggleSwitch.addEventListener("change", function () {
   );
 });
 
+// returns the binary value of the above three cells
 function getNeighbourValue(row, col) {
+  // if dark-mode, consider black as 1 and white as 0 while giving binary value
   if (value === 0) {
     const getCellColor = (r, c) =>
       gridContainer.children[(r - 1) * cols + c - 1]?.classList.contains(
@@ -39,7 +41,10 @@ function getNeighbourValue(row, col) {
     const top = getCellColor(row - 1, col);
     const topRight = getCellColor(row - 1, col + 1);
     return topLeft + top + topRight;
-  } else if (value === 1) {
+  } 
+  // if dark-mode, consider white as 0 and black as 1 while giving binary value
+  // to maintain uniformity in binary values logic
+  else if (value === 1) {
     const getCellColor = (r, c) =>
       gridContainer.children[(r - 1) * cols + c - 1]?.classList.contains(
         "white-cell"
@@ -53,6 +58,7 @@ function getNeighbourValue(row, col) {
   }
 }
 
+// checks if the neighbourValue in decimal form gives 0 or 1 as a final value to the next-gen cell
 function generatePattern(Rule) {
   gridContainer.innerHTML = "";
   let binary = Rule.toString(2);
@@ -81,7 +87,6 @@ function generatePattern(Rule) {
                 gridItem.classList.add("white-cell");
               }
             } else {
-              // const neighbourValue = parseInt(getNeighbourValue(i, j), 2);
               const neighbourValue =
                 value === 0
                   ? parseInt(getNeighbourValue(i, j), 2)
