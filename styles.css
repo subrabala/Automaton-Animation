@@ -31,8 +31,8 @@ body .dark-mode {
 }
 
 .control-panel {
-  border-radius: 0 20px 20px 0;
-  background-color: rgb(95, 190, 234);
+  /* border-radius: 0 20px 20px 0; */
+  background-color: rgb(68, 172, 220);
 }
 .button,
 .button:focus {
